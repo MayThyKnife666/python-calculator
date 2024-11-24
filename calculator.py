@@ -3,24 +3,28 @@ class Calculator:
         return a + b
 
     def subtract(self, a, b):
-        return b - a
+        return a - b  # Fixed
 
     def multiply(self, a, b):
         result = 0
-        for i in range(b+1):
+        for i in range(abs(b)):  # Handle absolute value
             result = self.add(result, a)
-        return result
+        return -result if b < 0 else result  # Handle negative multiplier
 
     def divide(self, a, b):
+        if b == 0:
+            raise ZeroDivisionError("Cannot divide by zero")  # Handle divide by zero
         result = 0
-        while a > b:
+        while a >= b:
             a = self.subtract(a, b)
             result += 1
         return result
-    
+
     def modulo(self, a, b):
-        while a <= b:
-            a = a-b
+        if b == 0:
+            raise ZeroDivisionError("Cannot calculate modulo with zero")  # Handle divide by zero
+        while a >= b:  # Fixed condition
+            a = self.subtract(a, b)
         return a
 
 # Example usage:
